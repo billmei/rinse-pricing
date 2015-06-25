@@ -6,8 +6,9 @@ Estimate prices for the Rinse service
 
 	$ git clone
 	$ cd
-	$ npm
-	$ bower
+	$ npm install
+	$ bower install
+	$ grunt build
 
 ## Run
 

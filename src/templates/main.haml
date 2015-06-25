@@ -1,0 +1,13 @@
+!!! 5
+%html
+  %head
+    %title= "Grunt Setup"
+    %link{ :href => "css/main.css", :media => "screen", :rel => "stylesheet" }
+  %body
+    / build:js js/main.js
+    %script{ :src => "bower_components/jquery/dist/jquery.js" }
+    %script{ :src => "bower_components/bootstrap/dist/js/bootstrap.js" }
+    %script{ :src => "bower_components/underscore/underscore.js" }
+    %script{ :src => "bower_components/backbone/backbone.js" }
+    %script{ :src => "src/scripts/main.js" }
+    / endbuild

@@ -1,4 +1,7 @@
 .sass-cache
+.tmp
+dist/
 node_modules/
+bower_components/
 app/css/
 app/index.html

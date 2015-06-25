@@ -30,3 +30,7 @@ var GARMENTS = {
 };
 
 var RUSH_FEE = 395;
+
+$(document).ready(function() {
+	alert('jquery works!');
+});
