@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       js: {
         files: 'src/scripts/*.js',
         tasks: ['copy:scripts']
-      }
+      },
     },
     // Compile SASS to CSS
     sass: {
@@ -80,6 +80,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
+            flatten: true,
             src: [
               'bower_components/bootstrap/dist/fonts/*',
               'bower_components/font-awesome/fonts/*'
@@ -93,12 +94,24 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
+            flatten: true,
             src: [
               'bower_components/bootstrap/dist/fonts/*',
               'bower_components/font-awesome/fonts/*'
             ],
             dest: 'dist/fonts/'
           },
+        ]
+      },
+      // Copy html output into production environment
+      views: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['dev/*.html'],
+            dest: 'dist/'
+          }
         ]
       }
     },
@@ -107,12 +120,20 @@ module.exports = function(grunt) {
       main: {
         files: [
           {
-            src: ['dev/js/*'],
-            dest: 'dev/packed.js'
+            src: [
+              'dev/js/jquery.js',
+              'dev/js/bootstrap.js',
+              'dev/js/underscore.js',
+              'dev/js/backbone.js',
+            ],
+            dest: 'dev/js/packed.js'
           },
           {
-            src: ['dev/css/*'],
-            dest: 'dev/packed.css'
+            src: [
+              'dev/css/bootstrap.css',
+              'dev/css/font-awesome.css',
+            ],
+            dest: 'dev/css/packed.css'
           }
         ]
       }
@@ -153,6 +174,15 @@ module.exports = function(grunt) {
       },
       html: ['dist/{,*/}*.html'],
       css: ['dist/css/{,*/}*.css']
+    },
+    // Serve files locally
+    'http-server': {
+      dev: {
+        root: 'dev/',
+        port: '5000',
+        host: '127.0.0.1',
+        runInBackground: true,
+      }
     }
   });
 
@@ -164,6 +194,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-http-server');
 
   // Initialize the dev environment
   grunt.registerTask('dev', [
@@ -174,12 +205,19 @@ module.exports = function(grunt) {
     'copy:scripts'
     ]);
 
+  // Watch the development environment for changes
+  // and spin up a local server to serve files
+  grunt.registerTask('run', [
+    'http-server:dev',
+    'watch'
+    ]);
+
   // Compiles and minifies code for production
   grunt.registerTask('ship', [
-    'sass',
-    'haml',
-    'concat',
+    'dev',
     'copy:fonts',
+    'copy:views',
+    'concat',
     'uglify',
     'cssmin',
     'useminPrepare',

@@ -12,7 +12,7 @@ Estimate prices for the Rinse service
 
 ## Run
 
-	$ grunt watch
+	$ grunt run
 
 ## Compile for production
 
