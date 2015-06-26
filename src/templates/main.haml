@@ -10,7 +10,8 @@
   %body
     .jumbotron
       .container
-        %h1 <span class="popover-disclaimer" data-toggle="popover" data-content="For informational purposes only; check rinse.com for the most updated prices. This website is not affiliated with Rinse Inc.">Unofficial</span> Rinse Price Calculator
+        %span#popover-disclaimer{"data-toggle" => "popover"} Unofficial
+        %h1 Rinse Price Calculator
         %p Estimate how much it costs to clean your clothes with Rinse
 
         %form#new-garment
@@ -22,6 +23,16 @@
 
     .container
       .row
+        %table.table.table-hover.table-striped
+          %thead
+            %td Garment
+            %td Cost
+            %td Quantity
+            %td Total
+          %tbody
+          %tfoot
+            %td.total-label Total
+            %td.total-value $0.00
 
       %footer
         %p

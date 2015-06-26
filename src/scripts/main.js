@@ -33,8 +33,10 @@ $(document).ready(function() {
 	var RUSH_FEE = 395;
 
 
-	$('.popover-disclaimer').popover({
+
+	$('#popover-disclaimer').popover({
 		'trigger' : 'hover click',
-		'placement' : 'bottom'
+		'placement' : 'bottom',
+		'content' : 'For informational purposes only; check rinse.com for the most updated prices. This website is not affiliated with Rinse Inc.'
 	});
 });
