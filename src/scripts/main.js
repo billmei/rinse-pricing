@@ -32,6 +32,9 @@ $(document).ready(function() {
 	};
 	var RUSH_FEE = 395;
 
-	
 
+	$('.popover-disclaimer').popover({
+		'trigger' : 'hover click',
+		'placement' : 'bottom'
+	});
 });
