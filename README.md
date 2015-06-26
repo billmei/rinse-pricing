@@ -8,9 +8,12 @@ Estimate prices for the Rinse service
 	$ cd rinse-pricing
 	$ npm install
 	$ bower install
-	$ grunt build
+	$ grunt dev
 
 ## Run
 
-	$ grunt
+	$ grunt watch
 
+## Compile for production
+
+	$ grunt ship

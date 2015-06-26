@@ -2,32 +2,94 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    // watch: {
-    //   sass: {
-    //     files: 'src/stylesheets/*.scss',
-    //     tasks: ['sass']
-    //   },
-    //   haml: {
-    //     files: 'app/templates/*.haml',
-    //     tasks: ['haml']
-    //   }
-    // },
+    // Watch for changes in development environment
+    watch: {
+      sass: {
+        files: 'src/stylesheets/*.scss',
+        tasks: ['sass']
+      },
+      haml: {
+        files: 'src/templates/*.haml',
+        tasks: ['haml']
+      },
+      js: {
+        files: 'src/scripts/*.js',
+        tasks: ['copy:scripts']
+      }
+    },
+    // Compile SASS to CSS
     sass: {
-      dist: {
+      main: {
         files: {
-          'dist/css/main.css' : 'src/stylesheets/main.scss'
+          'dev/css/main.css' : 'src/stylesheets/main.scss'
         }
       }
     },
+    // Compile HAML to HTML
     haml: {
-      dist: {
+      main: {
         files: {
-          'dist/index.html' : 'src/templates/main.haml'
+          'dev/index.html' : 'src/templates/main.haml'
         }
       }
     },
     copy: {
-      main: {
+      // Copy library files into dev environment
+      lib: {
+        files: [
+          /****JAVASCRIPT****/
+          {
+            src: ['bower_components/jquery/dist/jquery.js'],
+            dest: 'dev/js/jquery.js'
+          },
+          {
+            src: ['bower_components/bootstrap/dist/js/bootstrap.js'],
+            dest: 'dev/js/bootstrap.js'
+          },
+          {
+            src: ['bower_components/underscore/underscore.js'],
+            dest: 'dev/js/underscore.js'
+          },
+          {
+            src: ['bower_components/backbone/backbone.js'],
+            dest: 'dev/js/backbone.js'
+          },
+          /****CSS****/
+          {
+            src: ['bower_components/bootstrap/dist/css/bootstrap.css'],
+            // TODO: Replace this with custom bootstrap.css
+            dest: 'dev/css/bootstrap.css'
+          },
+          {
+            src: ['bower_components/font-awesome/css/font-awesome.css'],
+            dest: 'dev/css/font-awesome.css'
+          }
+        ]
+      },
+      // Copy src JavaScript into dev environment
+      scripts: {
+        files: [
+          {
+            src: ['src/scripts/main.js'],
+            dest: 'dev/js/main.js'
+          }
+        ]
+      },
+      // Copy fonts into dev environment
+      fontsdev: {
+        files: [
+          {
+            expand: true,
+            src: [
+              'bower_components/bootstrap/dist/fonts/*',
+              'bower_components/font-awesome/fonts/*'
+            ],
+            dest: 'dev/fonts/'
+          },
+        ]
+      },
+      // Copy fonts into production environment
+      fonts: {
         files: [
           {
             expand: true,
@@ -40,57 +102,51 @@ module.exports = function(grunt) {
         ]
       }
     },
+    // Concatenate JS and CSS into one file
     concat: {
-      generated: {
+      main: {
         files: [
           {
-            dest: '.tmp/js/main.js',
-            src: [
-              'bower_components/jquery/dist/jquery.js',
-              'bower_components/bootstrap/dist/js/bootstrap.js',
-              'bower_components/underscore/underscore.js',
-              'bower_components/backbone/backbone.js',
-              'src/scripts/main.js'
-            ]
+            src: ['dev/js/*'],
+            dest: 'dev/packed.js'
           },
           {
-            dest: '.tmp/css/main.css',
-            src: [
-            // TODO: Replace this with custom bootstrap.css
-              'bower_components/bootstrap/dist/css/bootstrap.css',
-              'bower_components/font-awesome/css/font-awesome.css',
-              'src/stylesheets/main.css'
-            ]
+            src: ['dev/css/*'],
+            dest: 'dev/packed.css'
           }
         ]
       }
     },
+    // Minify JS for production
     uglify: {
-      generated: {
+      main: {
         files: [
           {
             dest: 'dist/js/main.js',
-            src: ['.tmp/js/main.js']
+            src: ['dev/js/packed.js']
           }
         ]
       }
     },
+    // Minify CSS for production
     cssmin: {
-      generated: {
+      main: {
         files: [
           {
             dest: 'dist/css/main.css',
-            src: ['.tmp/css/main.css']
+            src: ['dev/css/packed.css']
           }
         ]
       }
     },
+    // Configure minification target for production
     useminPrepare: {
       options: {
         dest: 'dist'
       },
       html: 'dist/index.html'
     },
+    // Replace <link> href's and <script> src's with minified version
     usemin: {
       options: {
         dirs: ['dist']
@@ -109,16 +165,23 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-usemin');
 
-  // TODO: build task compiles non-gitignored minified files ready for production
-  // TODO: dev task that compiles non-minified files into a gitignored directory
-
-  grunt.registerTask('build', [
+  // Initialize the dev environment
+  grunt.registerTask('dev', [
     'sass',
     'haml',
-    'copy',
-    'concat:generated',
-    'uglify:generated',
-    'cssmin:generated',
+    'copy:fontsdev',
+    'copy:lib',
+    'copy:scripts'
+    ]);
+
+  // Compiles and minifies code for production
+  grunt.registerTask('ship', [
+    'sass',
+    'haml',
+    'concat',
+    'copy:fonts',
+    'uglify',
+    'cssmin',
     'useminPrepare',
     'usemin'
     ]);

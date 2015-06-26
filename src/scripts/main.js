@@ -43,7 +43,17 @@ $(document).ready(function() {
 	});
 
 	var GarmentCollection = Backbone.Collection.extend({
-		model: GarmentModel
+		model: GarmentModel,
+
+		initialize: function() {
+		    _.bind(this.totalCost, this);
+		},
+
+		totalCost: function() {
+			return this.reduce(function(a, x) {
+				return a + x.get('total_cost');
+			});
+		}
 	});
 
 	var GarmentView = Backbone.View.extend({
@@ -85,25 +95,28 @@ $(document).ready(function() {
 
 	var TableView = Backbone.View.extend({
 		el: $('#calculation-table'),
-		events: {
-			'click #add-garment' : 'addGarment'
-		},
 
 		initialize: function() {
+			var self = this;
 			_.bindAll(this, 'render');
 
 			this.collection = new GarmentCollection();
 			this.render();
+
+			$('#add-garment').on('click', function(event) {
+				event.preventDefault();
+				self.addGarment().bind(this, self);
+			});
 		},
 
 		render: function() {
 			var self = this;
-			_(this.collection.models.each(function(garment){
+			_(this.collection.models).each(function(garment){
 				self.appendGarment(garment);
-			}), this);
+			}, this);
 		},
 
-		addGarment: function() {
+		addGarment: function(t) {
 			this.collection.create(new Garment());
 		},
 
@@ -121,6 +134,8 @@ $(document).ready(function() {
 		'placement' : 'bottom',
 		'content' : 'For informational purposes only; check rinse.com for the most updated prices. This website is not affiliated with Rinse Inc.'
 	});
+
+	var tableView = new TableView();
 });
 
 // Decimal rounding from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round

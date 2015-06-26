@@ -6,7 +6,11 @@
     %title Rinse Price Calculator
     %meta{:content => "Estimate how much it costs to use Rinse", :name => "description"}
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
-    %link{ :href => "css/main.css", :media => "screen", :rel => "stylesheet" }
+    / build:css css/main.css
+    %link{:href => "css/bootstrap.css", :media => "screen", :rel => "stylesheet"}
+    %link{:href => "css/font-awesome.css", :media => "screen", :rel => "stylesheet"}
+    %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
+    / endbuild
   %body
     .jumbotron
       .container
@@ -31,6 +35,7 @@
             %td Total
           %tbody#calculation-table
           %tfoot
+            %td.table-spacer{:colspan => "2"}
             %td.total-label Total
             %td.total-value $0.00
 
@@ -42,9 +47,9 @@
           This website is not affiliated with Rinse Inc.
 
     / build:js js/main.js
-    %script{ :src => "bower_components/jquery/dist/jquery.js" }
-    %script{ :src => "bower_components/bootstrap/dist/js/bootstrap.js" }
-    %script{ :src => "bower_components/underscore/underscore.js" }
-    %script{ :src => "bower_components/backbone/backbone.js" }
-    %script{ :src => "src/scripts/main.js" }
+    %script{:src => "js/jquery.js"}
+    %script{:src => "js/bootstrap.js"}
+    %script{:src => "js/underscore.js"}
+    %script{:src => "js/backbone.js"}
+    %script{:src => "js/main.js"}
     / endbuild

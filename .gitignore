@@ -1,6 +1,5 @@
 .sass-cache
-.tmp
-dist/
+dev/
 node_modules/
 bower_components/
 app/css/
