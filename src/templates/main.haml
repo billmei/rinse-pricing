@@ -14,12 +14,12 @@
         %h1 Rinse Price Calculator
         %p Estimate how much it costs to clean your clothes with Rinse
 
-        %form#new-garment
+        %form#garment-form
           .form-group
-            %label{:for => "garment"} Garment
-            %input#garment.form-control{:placeholder => "e.g. \"Shirt\", \"Blouse\", etc."}
+            %label{:for => "garment-type"} Garment
+            %input#garment-type.form-control{:placeholder => "e.g. \"Shirt\", \"Blouse\", etc."}
           .form-group
-            %button#add.btn.btn-primary Add
+            %button#add-garment.btn.btn-primary Add
 
     .container
       .row
@@ -29,7 +29,7 @@
             %td Cost
             %td Quantity
             %td Total
-          %tbody
+          %tbody#calculation-table
           %tfoot
             %td.total-label Total
             %td.total-value $0.00
