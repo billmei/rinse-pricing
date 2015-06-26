@@ -9,6 +9,7 @@
     / build:css css/main.css
     %link{:href => "css/bootstrap.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/font-awesome.css", :media => "screen", :rel => "stylesheet"}
+    %link{:href => "css/chosen.min.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
     / endbuild
   %body
@@ -21,19 +22,61 @@
         %form#garment-form
           .form-group
             %label{:for => "garment-type"} Garment
-            %input#garment-type.form-control{:placeholder => "e.g. \"Shirt\", \"Blouse\", etc."}
+            %select#garment-type{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
+              %option{:value => ""}
+              %option{:value => "bath mat"} Bath Mat
+              %option{:value => "bathing suit (per piece)"} Bathing Suit (per piece)
+              %option{:value => "bed sheet"} Bed Sheet
+              %option{:value => "blanket"} Blanket
+              %option{:value => "blazer"} Blazer
+              %option{:value => "blouse"} Blouse
+              %option{:value => "coat"} Coat
+              %option{:value => "comforter"} Comforter
+              %option{:value => "delicates"} Delicates
+              %option{:value => "dress (casual)"} Dress (Casual)
+              %option{:value => "dress (formal)"} Dress (Formal)
+              %option{:value => "duvet cover"} Duvet Cover
+              %option{:value => "jacket (formal)"} Jacket (Formal)
+              %option{:value => "kitchen mat"} Kitchen Mat
+              %option{:value => "napkin"} Napkin
+              %option{:value => "pants"} Pants
+              %option{:value => "pashmina"} Pashmina
+              %option{:value => "pillow"} Pillow
+              %option{:value => "pillowcase"} Pillowcase
+              %option{:value => "scarf"} Scarf
+              %option{:value => "shawl"} Shawl
+              %option{:value => "shirt"} Shirt
+              %option{:value => "skirt"} Skirt
+              %option{:value => "sweater"} Sweater
+              %option{:value => "synthetics"} Synthetics
+              %option{:value => "tablecloth"} Tablecloth
+              %option{:value => "tie"} Tie
+              %option{:value => "wash and fold"} Wash and Fold
+
+          .form-group
+            %label{:for => "garment-quantity"} Number
+            %input#garment-quantity{:type => "number", :placeholder => "0"}/
+
           .form-group
             %button#add-garment.btn.btn-primary Add
+            %button#rush-order.btn.btn-default Rush Order?
+            %button#clear-items.btn.btn-danger Clear Items
+
+          .form-group
+            %label Your Total $
+            %span 10.00
 
     .container
       .row
+        %h2 Breakdown
         %table.table.table-hover.table-striped
           %thead
-            %td Garment
+            %td Service
             %td Cost
             %td Quantity
             %td Total
           %tbody#calculation-table
+          / Wash and fold: Shirt, $2.50, 2, $5.00
           %tfoot
             %td.table-spacer{:colspan => "2"}
             %td.total-label Total
@@ -52,5 +95,6 @@
     %script{:src => "js/underscore.js"}
     %script{:src => "js/backbone.js"}
     %script{:src => "js/backbone-localStorage.js"}
+    %script{:src => "js/chosen.min.js"}
     %script{:src => "js/main.js"}
     / endbuild

@@ -107,6 +107,8 @@ $(document).ready(function() {
       this.collection.fetch();
       this.render();
 
+      $('#garment-type').chosen();
+
       $('#add-garment').on('click', function(event) {
         event.preventDefault();
         self.addGarment(self);

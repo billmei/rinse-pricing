@@ -43,10 +43,12 @@ module.exports = function(grunt) {
           {src: ['bower_components/underscore/underscore.js'], dest: 'dev/js/underscore.js'},
           {src: ['bower_components/backbone/backbone.js'], dest: 'dev/js/backbone.js'},
           {src: ['bower_components/backbone.localstorage/backbone.localStorage.js'], dest: 'dev/js/backbone-localStorage.js'},
+          {src: ['bower_components/chosen/chosen.jquery.min.js'], dest: 'dev/js/chosen.min.js'},
           /****CSS****/
           // TODO: Replace this with custom bootstrap.css
           {src: ['bower_components/bootstrap/dist/css/bootstrap.css'], dest: 'dev/css/bootstrap.css'},
-          {src: ['bower_components/font-awesome/css/font-awesome.css'], dest: 'dev/css/font-awesome.css'}
+          {src: ['bower_components/font-awesome/css/font-awesome.css'], dest: 'dev/css/font-awesome.css'},
+          {src: ['bower_components/chosen/chosen.min.css'], dest: 'dev/css/chosen.min.css'},
         ]
       },
       // Copy src JavaScript into dev environment
@@ -58,8 +60,8 @@ module.exports = function(grunt) {
           }
         ]
       },
-      // Copy fonts into dev environment
-      fontsdev: {
+      // Copy fonts and images into dev environment
+      staticdev: {
         files: [
           {
             expand: true,
@@ -70,10 +72,18 @@ module.exports = function(grunt) {
             ],
             dest: 'dev/fonts/'
           },
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'bower_components/chosen/*.png'
+            ],
+            dest: 'dev/css/'
+          }
         ]
       },
-      // Copy fonts into production environment
-      fonts: {
+      // Copy fonts and images into production environment
+      staticdist: {
         files: [
           {
             expand: true,
@@ -109,6 +119,7 @@ module.exports = function(grunt) {
               'dev/js/underscore.js',
               'dev/js/backbone.js',
               'dev/js/backbone-localStorage.js',
+              'dev/js/chosen.min.js',
             ],
             dest: 'dev/js/packed.js'
           },
@@ -116,6 +127,7 @@ module.exports = function(grunt) {
             src: [
               'dev/css/bootstrap.css',
               'dev/css/font-awesome.css',
+              'dev/css/chosen.min.css',
             ],
             dest: 'dev/css/packed.css'
           }
@@ -184,7 +196,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', [
     'sass',
     'haml',
-    'copy:fontsdev',
+    'copy:staticdev',
     'copy:lib',
     'copy:scripts'
     ]);
@@ -199,7 +211,7 @@ module.exports = function(grunt) {
   // Compiles and minifies code for production
   grunt.registerTask('ship', [
     'dev',
-    'copy:fonts',
+    'copy:staticdist',
     'copy:views',
     'concat',
     'uglify',
