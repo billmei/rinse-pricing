@@ -54,6 +54,10 @@ module.exports = function(grunt) {
             src: ['bower_components/backbone/backbone.js'],
             dest: 'dev/js/backbone.js'
           },
+          {
+            src: ['bower_components/backbone.localstorage/backbone.localStorage.js'],
+            dest: 'dev/js/backbone-localStorage.js'
+          },
           /****CSS****/
           {
             src: ['bower_components/bootstrap/dist/css/bootstrap.css'],

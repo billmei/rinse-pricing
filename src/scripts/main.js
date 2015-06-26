@@ -44,6 +44,7 @@ $(document).ready(function() {
 
 	var GarmentCollection = Backbone.Collection.extend({
 		model: GarmentModel,
+		localStorage: new Backbone.LocalStorage('garments-manager'),
 
 		initialize: function() {
 		    _.bind(this.totalCost, this);
@@ -72,10 +73,10 @@ $(document).ready(function() {
 
 		render: function() {
 			this.$el.html(
-				'<td>' + this.model.get(garment_type) + '</td>' +
-				'<td>' + Math.round(this.model.get(quantity)) + '</td>' +
-				'<td>' + Math.round10(this.model.get(cost), -2) + '</td>' +
-				'<td>' + Math.round10(this.model.get(total_cost), -2) + '</td>'
+				'<td>' + this.model.get('garment_type') + '</td>' +
+				'<td>' + Math.round(this.model.get('quantity')) + '</td>' +
+				'<td>' + Math.round10(this.model.get('cost'), -2) + '</td>' +
+				'<td>' + Math.round10(this.model.get('total_cost'), -2) + '</td>'
 			);
 			return this;
 		},
@@ -101,11 +102,14 @@ $(document).ready(function() {
 			_.bindAll(this, 'render');
 
 			this.collection = new GarmentCollection();
+			// Used to fetch from localStorage
+			this.collection.bind('add', this.appendGarment);
+			this.collection.fetch();
 			this.render();
 
 			$('#add-garment').on('click', function(event) {
 				event.preventDefault();
-				self.addGarment().bind(this, self);
+				self.addGarment(self);
 			});
 		},
 
@@ -116,8 +120,8 @@ $(document).ready(function() {
 			}, this);
 		},
 
-		addGarment: function(t) {
-			this.collection.create(new Garment());
+		addGarment: function(self) {
+			self.collection.create(new GarmentModel());
 		},
 
 		appendGarment: function(garment) {
