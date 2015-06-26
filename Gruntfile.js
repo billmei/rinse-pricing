@@ -38,36 +38,15 @@ module.exports = function(grunt) {
       lib: {
         files: [
           /****JAVASCRIPT****/
-          {
-            src: ['bower_components/jquery/dist/jquery.js'],
-            dest: 'dev/js/jquery.js'
-          },
-          {
-            src: ['bower_components/bootstrap/dist/js/bootstrap.js'],
-            dest: 'dev/js/bootstrap.js'
-          },
-          {
-            src: ['bower_components/underscore/underscore.js'],
-            dest: 'dev/js/underscore.js'
-          },
-          {
-            src: ['bower_components/backbone/backbone.js'],
-            dest: 'dev/js/backbone.js'
-          },
-          {
-            src: ['bower_components/backbone.localstorage/backbone.localStorage.js'],
-            dest: 'dev/js/backbone-localStorage.js'
-          },
+          {src: ['bower_components/jquery/dist/jquery.js'], dest: 'dev/js/jquery.js'},
+          {src: ['bower_components/bootstrap/dist/js/bootstrap.js'], dest: 'dev/js/bootstrap.js'},
+          {src: ['bower_components/underscore/underscore.js'], dest: 'dev/js/underscore.js'},
+          {src: ['bower_components/backbone/backbone.js'], dest: 'dev/js/backbone.js'},
+          {src: ['bower_components/backbone.localstorage/backbone.localStorage.js'], dest: 'dev/js/backbone-localStorage.js'},
           /****CSS****/
-          {
-            src: ['bower_components/bootstrap/dist/css/bootstrap.css'],
-            // TODO: Replace this with custom bootstrap.css
-            dest: 'dev/css/bootstrap.css'
-          },
-          {
-            src: ['bower_components/font-awesome/css/font-awesome.css'],
-            dest: 'dev/css/font-awesome.css'
-          }
+          // TODO: Replace this with custom bootstrap.css
+          {src: ['bower_components/bootstrap/dist/css/bootstrap.css'], dest: 'dev/css/bootstrap.css'},
+          {src: ['bower_components/font-awesome/css/font-awesome.css'], dest: 'dev/css/font-awesome.css'}
         ]
       },
       // Copy src JavaScript into dev environment
@@ -129,6 +108,7 @@ module.exports = function(grunt) {
               'dev/js/bootstrap.js',
               'dev/js/underscore.js',
               'dev/js/backbone.js',
+              'dev/js/backbone-localStorage.js',
             ],
             dest: 'dev/js/packed.js'
           },

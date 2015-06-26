@@ -102,8 +102,8 @@ $(document).ready(function() {
 			_.bindAll(this, 'render');
 
 			this.collection = new GarmentCollection();
-			// Used to fetch from localStorage
 			this.collection.bind('add', this.appendGarment);
+			// Used to fetch from localStorage
 			this.collection.fetch();
 			this.render();
 
