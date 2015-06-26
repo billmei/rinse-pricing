@@ -6,7 +6,6 @@
     "Bill Mei <contact@kortaggio.com> (http://www.kortaggio.com)"
   ],
   "description": "Price estimator for Rinse",
-  "main": "index.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

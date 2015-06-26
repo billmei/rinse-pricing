@@ -26,6 +26,20 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            src: [
+              'bower_components/bootstrap/dist/fonts/*',
+              'bower_components/font-awesome/fonts/*'
+            ],
+            dest: 'dist/fonts/'
+          },
+        ]
+      }
+    },
     concat: {
       generated: {
         files: [
@@ -44,6 +58,7 @@ module.exports = function(grunt) {
             src: [
             // TODO: Replace this with custom bootstrap.css
               'bower_components/bootstrap/dist/css/bootstrap.css',
+              'bower_components/font-awesome/css/font-awesome.css',
               'src/stylesheets/main.css'
             ]
           }
@@ -60,9 +75,16 @@ module.exports = function(grunt) {
         ]
       }
     },
-    // cssmin: {
-
-    // },
+    cssmin: {
+      generated: {
+        files: [
+          {
+            dest: 'dist/css/main.css',
+            src: ['.tmp/css/main.css']
+          }
+        ]
+      }
+    },
     useminPrepare: {
       options: {
         dest: 'dist'
@@ -74,7 +96,7 @@ module.exports = function(grunt) {
         dirs: ['dist']
       },
       html: ['dist/{,*/}*.html'],
-      css: ['dist/styles/{,*/}*.css']
+      css: ['dist/css/{,*/}*.css']
     }
   });
 
@@ -84,11 +106,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-usemin');
+
+  // TODO: build task compiles non-gitignored minified files ready for production
+  // TODO: dev task that compiles non-minified files into a gitignored directory
 
   grunt.registerTask('build', [
     'sass',
     'haml',
+    'copy',
     'concat:generated',
     'uglify:generated',
     'cssmin:generated',

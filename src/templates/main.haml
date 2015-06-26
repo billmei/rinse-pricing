@@ -1,9 +1,35 @@
 !!! 5
 %html
   %head
-    %title= "Grunt Setup"
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %title Rinse Price Calculator
+    %meta{:content => "Estimate how much it costs to use Rinse", :name => "description"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
     %link{ :href => "css/main.css", :media => "screen", :rel => "stylesheet" }
   %body
+    .jumbotron
+      .container
+        %h1 (Unofficial) Rinse Price Calculator
+        %p Estimate how much it costs to clean your clothes with Rinse
+
+        %form#new-garment
+          .form-group
+            %label{:for => "garment"} Garment
+            %input#garment.form-control{:placeholder => "e.g. \"Shirt\", \"Blouse\", etc."}
+          .form-group
+            %button#add.btn.btn-primary Add
+
+    .container
+      .row
+
+      %footer
+        %p
+          Created by
+          = succeed "." do
+            %a{:href => "http://www.kortaggio.com"} Bill Mei
+          This website is not affiliated with Rinse Inc.
+
     / build:js js/main.js
     %script{ :src => "bower_components/jquery/dist/jquery.js" }
     %script{ :src => "bower_components/bootstrap/dist/js/bootstrap.js" }

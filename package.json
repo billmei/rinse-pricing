@@ -2,7 +2,6 @@
   "name": "rinse-pricing",
   "version": "0.1.0",
   "description": "Price estimator for Rinse",
-  "main": "index.js",
   "scripts": {
     "test": "test"
   },
@@ -23,6 +22,7 @@
     "grunt-contrib-concat": "~0.5.1",
     "grunt-contrib-uglify": "~0.9.1",
     "grunt-contrib-cssmin": "~0.12.3",
+    "grunt-contrib-copy": "~0.8.0",
     "grunt-usemin": "~3.0.0"
   }
 }
