@@ -47,13 +47,11 @@ $(document).ready(function() {
     localStorage: new Backbone.LocalStorage('garments-manager'),
 
     initialize: function() {
-      _.bind(this.totalCost, this);
+      _.bind(this.sumCosts, this);
     },
 
-    totalCost: function() {
-      return this.reduce(function(a, x) {
-        return a + x.get('total_cost');
-      });
+    sumCosts: function() {
+      return _.reduce(this.models, function(a,x){return a + x.get('total_cost');}, 0);
     }
   });
 
@@ -116,17 +114,26 @@ $(document).ready(function() {
 
       $addGarment.on('click', function(event) {
         event.preventDefault();
-        var garmentType = $garmentType.val().toTitleCase();
+        var garmentType = $garmentType.val();
         var garmentQuantity = parseInt($garmentQuantity.val());
-        var garmentCost = GARMENTS[garmentType];
+        var garmentCost = parseFloat(GARMENTS[garmentType]);
+        garmentType.toTitleCase();
 
-        self.addGarment(self, {
+        self.addGarment.bind(self)({
           garment_type: garmentType,
           cost: garmentCost,
           quantity: garmentQuantity,
           total_cost: garmentCost * garmentQuantity,
         });
+
+        self.updateTotal.bind(self)();
       });
+    },
+
+    updateTotal: function() {
+      var totalCost = this.collection.sumCosts().toFixed(2);
+      $('#grand-total').html('$' + totalCost);
+      $('#total-value').html('$' + totalCost);
     },
 
     render: function() {
@@ -136,8 +143,8 @@ $(document).ready(function() {
       }, this);
     },
 
-    addGarment: function(self, params) {
-      self.collection.create(new GarmentModel(params));
+    addGarment: function(params) {
+      this.collection.create(new GarmentModel(params));
     },
 
     appendGarment: function(garment) {
