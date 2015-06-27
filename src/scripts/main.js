@@ -108,7 +108,23 @@ $(document).ready(function() {
       this.collection.bind('add', this.appendGarment);
       // Used to fetch from localStorage
       this.collection.fetch();
+      this.updateTotal();
       this.render();
+
+      // Populate garment choices
+      var sortedGarments = [];
+      for (var garment in GARMENTS) {
+        sortedGarments.push(garment);
+      }
+      sortedGarments.sort();
+      for (var i = 0; i < sortedGarments.length; i++) {
+        var g = sortedGarments[i];
+        $garmentType.append(
+          '<option value="' + g + '">' +
+            g.toTitleCase() +
+          '</option>'
+          );
+      }
 
       $garmentType.chosen();
 
@@ -117,10 +133,9 @@ $(document).ready(function() {
         var garmentType = $garmentType.val();
         var garmentQuantity = parseInt($garmentQuantity.val());
         var garmentCost = parseFloat(GARMENTS[garmentType]);
-        garmentType.toTitleCase();
 
         self.addGarment.bind(self)({
-          garment_type: garmentType,
+          garment_type: garmentType.toTitleCase(),
           cost: garmentCost,
           quantity: garmentQuantity,
           total_cost: garmentCost * garmentQuantity,
