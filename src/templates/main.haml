@@ -58,8 +58,11 @@
             %input#garment-quantity{:type => "number", :placeholder => "0"}/
 
           .form-group
+            %label{:for => "rush-order"} Rush Order?
+            %input#rush-order{:type => "checkbox"}/
+
+          .form-group
             %button#add-garment.btn.btn-primary Add
-            %button#rush-order.btn.btn-default Rush Order?
             %button#clear-items.btn.btn-danger Clear Items
 
           .form-group

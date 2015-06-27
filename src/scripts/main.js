@@ -36,8 +36,8 @@ $(document).ready(function() {
   var GarmentModel = Backbone.Model.extend({
     defaults: {
       garment_type: '',
-      quantity: 0,
       cost: 0,
+      quantity: 0,
       total_cost: 0,
     }
   });
@@ -47,7 +47,7 @@ $(document).ready(function() {
     localStorage: new Backbone.LocalStorage('garments-manager'),
 
     initialize: function() {
-        _.bind(this.totalCost, this);
+      _.bind(this.totalCost, this);
     },
 
     totalCost: function() {
@@ -62,7 +62,7 @@ $(document).ready(function() {
     className: 'garment',
 
     events: {
-
+      'click .remove-garment': 'remove'
     },
 
     initialize: function() {
@@ -74,9 +74,10 @@ $(document).ready(function() {
     render: function() {
       this.$el.html(
         '<td>' + this.model.get('garment_type') + '</td>' +
+        '<td>$' + Math.round10(this.model.get('cost'), -2).toFixed(2) + '</td>' +
         '<td>' + Math.round(this.model.get('quantity')) + '</td>' +
-        '<td>' + Math.round10(this.model.get('cost'), -2) + '</td>' +
-        '<td>' + Math.round10(this.model.get('total_cost'), -2) + '</td>'
+        '<td>$' + Math.round10(this.model.get('total_cost'), -2).toFixed(2) + '</td>' +
+        '<td><button class="remove-garment"><i class="fa fa-times"></i></button></td>'
       );
       return this;
     },
@@ -99,6 +100,10 @@ $(document).ready(function() {
 
     initialize: function() {
       var self = this;
+      var $garmentType = $('#garment-type');
+      var $garmentQuantity = $('#garment-quantity');
+      var $rushOrder = $('#rush-order');
+      var $addGarment = $('#add-garment');
       _.bindAll(this, 'render');
 
       this.collection = new GarmentCollection();
@@ -107,11 +112,20 @@ $(document).ready(function() {
       this.collection.fetch();
       this.render();
 
-      $('#garment-type').chosen();
+      $garmentType.chosen();
 
-      $('#add-garment').on('click', function(event) {
+      $addGarment.on('click', function(event) {
         event.preventDefault();
-        self.addGarment(self);
+        var garmentType = $garmentType.val().toTitleCase();
+        var garmentQuantity = parseInt($garmentQuantity.val());
+        var garmentCost = GARMENTS[garmentType];
+
+        self.addGarment(self, {
+          garment_type: garmentType,
+          cost: garmentCost,
+          quantity: garmentQuantity,
+          total_cost: garmentCost * garmentQuantity,
+        });
       });
     },
 
@@ -122,8 +136,8 @@ $(document).ready(function() {
       }, this);
     },
 
-    addGarment: function(self) {
-      self.collection.create(new GarmentModel());
+    addGarment: function(self, params) {
+      self.collection.create(new GarmentModel(params));
     },
 
     appendGarment: function(garment) {
@@ -138,7 +152,8 @@ $(document).ready(function() {
   $('#popover-disclaimer').popover({
     'trigger' : 'hover click',
     'placement' : 'bottom',
-    'content' : 'For informational purposes only; check rinse.com for the most updated prices. This website is not affiliated with Rinse Inc.'
+    'content' : 'For informational purposes only; check <a href="http://www.rinse.com">rinse.com</a> for the most updated prices. This website is not affiliated with Rinse Inc.',
+    'html' : true
   });
 
   var tableView = new TableView();
@@ -192,3 +207,27 @@ $(document).ready(function() {
     };
   }
 })();
+
+/* 
+  * To Title Case 2.1 – http://individed.com/code/to-title-case/
+  * Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
+ */
+
+String.prototype.toTitleCase = function(){
+  var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+
+  return this.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title){
+    if (index > 0 && index + match.length !== title.length &&
+      match.search(smallWords) > -1 && title.charAt(index - 2) !== ":" &&
+      (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
+      title.charAt(index - 1).search(/[^\s-]/) < 0) {
+      return match.toLowerCase();
+    }
+
+    if (match.substr(1).search(/[A-Z]|\../) > -1) {
+      return match;
+    }
+
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
+};
