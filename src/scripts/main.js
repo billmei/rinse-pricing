@@ -103,6 +103,7 @@ $(document).ready(function() {
       var $garmentQuantity = $('#garment-quantity');
       var $rushOrder = $('#rush-order');
       var $addGarment = $('#add-garment');
+      var $clearAll = $('#clear-items');
       _.bindAll(this, 'render');
 
       this.collection = new GarmentCollection();
@@ -129,6 +130,8 @@ $(document).ready(function() {
 
       $garmentType.chosen();
 
+      // TODO: Refactor this into an AppView to preserve the local scope
+      //       and events of $el.
       $addGarment.on('click', function(event) {
         event.preventDefault();
         var garmentType = $garmentType.val();
@@ -141,6 +144,13 @@ $(document).ready(function() {
           quantity: garmentQuantity,
           total_cost: garmentCost * garmentQuantity,
         });
+      });
+
+      $clearAll.on('click', function(event) {
+        event.preventDefault();
+        self.removeAll.bind(self)();
+        self.unrenderAll.bind(self)();
+        self.updateTotal();
       });
     },
 
@@ -157,6 +167,10 @@ $(document).ready(function() {
       }, this);
     },
 
+    unrenderAll: function() {
+      this.$el.html('');
+    },
+
     addGarment: function(params) {
       this.collection.create(new GarmentModel(params));
       this.updateTotal();
@@ -168,6 +182,10 @@ $(document).ready(function() {
       });
       var garmentEl = garmentView.render().$el;
       $('#calculation-table', this.el).append(garmentEl);
+    },
+
+    removeAll: function() {
+      this.collection.reset();
     }
   });
 
