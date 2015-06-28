@@ -75,7 +75,7 @@ $(document).ready(function() {
         '<td>$' + Math.round10(this.model.get('cost'), -2).toFixed(2) + '</td>' +
         '<td>' + Math.round(this.model.get('quantity')) + '</td>' +
         '<td>$' + Math.round10(this.model.get('total_cost'), -2).toFixed(2) + '</td>' +
-        '<td><button class="remove-garment"><i class="fa fa-times"></i></button></td>'
+        '<td><button class="btn btn-danger remove-garment"><i class="fa fa-times"></i></button></td>'
       );
       return this;
     },
@@ -90,6 +90,7 @@ $(document).ready(function() {
 
     remove: function() {
       this.model.destroy();
+      tableView.updateTotal();
     }
   });
 
@@ -140,8 +141,6 @@ $(document).ready(function() {
           quantity: garmentQuantity,
           total_cost: garmentCost * garmentQuantity,
         });
-
-        self.updateTotal.bind(self)();
       });
     },
 
@@ -160,6 +159,7 @@ $(document).ready(function() {
 
     addGarment: function(params) {
       this.collection.create(new GarmentModel(params));
+      this.updateTotal();
     },
 
     appendGarment: function(garment) {
