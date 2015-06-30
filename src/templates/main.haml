@@ -10,7 +10,6 @@
     %link{:href => "css/bootstrap.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/font-awesome.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/chosen.min.css", :media => "screen", :rel => "stylesheet"}
-    %link{:href => "css/bootstrap-switch.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
     / endbuild
   %body
@@ -32,7 +31,7 @@
 
           .form-group
             %label{:for => "rush-order"} Rush Order?
-            %input#rush-order{:type => "checkbox"}/
+            %input#rush-order.input-sm{:type => "checkbox"}/
 
           .form-group
             %button#add-garment.btn.btn-primary Add
@@ -75,6 +74,5 @@
     %script{:src => "js/backbone.js"}
     %script{:src => "js/backbone-localStorage.js"}
     %script{:src => "js/chosen.min.js"}
-    %script{:src => "js/bootstrap-switch.js"}
     %script{:src => "js/main.js"}
     / endbuild
