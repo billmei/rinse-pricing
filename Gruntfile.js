@@ -79,6 +79,14 @@ module.exports = function(grunt) {
               'bower_components/chosen/*.png'
             ],
             dest: 'dev/css/'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'src/images/*'
+            ],
+            dest: 'dev/img/'
           }
         ]
       },

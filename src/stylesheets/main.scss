@@ -2,6 +2,17 @@
 @import "fonts";
 @import "dimens";
 
+body {
+  background: url('../img/crossword.png');
+  background-repeat: repeat;
+  font-family: $primary-font;
+}
+
+.jumbotron {
+  background-color: $logo-blue;
+  color: $white;
+}
+
 #popover-disclaimer:hover {
   cursor: pointer;
 }
@@ -9,7 +20,6 @@
 #calculation-table:hover {
   cursor: pointer;
 }
-
 
 .calculation-options {
   label {

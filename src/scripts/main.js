@@ -161,7 +161,7 @@ $(document).ready(function() {
     defaults: {
       garment_type: '',
       cost: 0,
-      quantity: 0,
+      quantity: 1,
       is_rush: false,
       hang_dry: false,
       descriptor: 'item',
@@ -334,7 +334,7 @@ $(document).ready(function() {
   $('#popover-disclaimer').popover({
     'trigger' : 'hover click',
     'placement' : 'bottom',
-    'content' : 'For informational purposes only; check <a href="http://www.rinse.com">rinse.com</a> for the most updated prices. This website is not affiliated with Rinse Inc.',
+    'content' : 'For informational purposes only; check <a href="http://www.rinse.com">rinse.com</a> for the most updated prices.',
     'html' : true
   });
 

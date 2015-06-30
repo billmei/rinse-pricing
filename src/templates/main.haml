@@ -13,69 +13,73 @@
     %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
     / endbuild
   %body
+    .jumbotron
+      .container
+        .row
+          .col-xs-12
+            %h1 Rinse Price Calculator
+            %p Estimate how much it costs to clean your clothes with Rinse
+
     .container
       .row
-        %span#popover-disclaimer{"data-toggle" => "popover"} Unofficial
-        %h1 Rinse Price Calculator
-        %p Estimate how much it costs to clean your clothes with Rinse
-      .row
-        %h2 Your Total Cost: <span id="grand-total"></span>
-        %table.table.table-hover.table-striped
-          %thead
-            %tr.calculation-options
-              %td.form-group
-                %label{:for => "garment-type"} Garment
-                %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
-                  %option{:value => ""}
+        .col-xs-12
+          %h2 Your Total Cost: <span id="grand-total"></span>
+          %table.table.table-hover.table-striped
+            %thead
+              %tr.calculation-options
+                %td.form-group
+                  %label{:for => "garment-type"} Garment
+                  %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
+                    %option{:value => ""}
 
-              %td.form-group
-                %label{:for => "garment-quantity"} Quantity
-                %input#garment-quantity.form-control{:type => "number", :placeholder => "0"}/
+                %td.form-group
+                  %label{:for => "garment-quantity"} Quantity
+                  %input#garment-quantity.form-control{:type => "number", :placeholder => "1"}/
 
-              %td.form-group
-                %label Price
+                %td.form-group
+                  %label Price
 
-              %td.form-group
-                %label{:for => "rush-order"} Rush?
-                .btn-group{"data-toggle" => "buttons"}
-                  %label.btn.btn-default.btn-disabled
-                    %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
+                %td.form-group
+                  %label{:for => "rush-order"} Rush?
+                  .btn-group{"data-toggle" => "buttons"}
+                    %label.btn.btn-default.btn-disabled
+                      %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
 
-              %td.form-group
-                %label{:for => "hang-dry"} Hang&nbsp;Dry?
-                .btn-group{"data-toggle" => "buttons"}
-                  %label.btn.btn-default.btn-disabled
-                    %input#hang-dry{:type => "checkbox", :autocomplete => "off"} No
+                %td.form-group
+                  %label{:for => "hang-dry"} Hang&nbsp;Dry?
+                  .btn-group{"data-toggle" => "buttons"}
+                    %label.btn.btn-default.btn-disabled
+                      %input#hang-dry{:type => "checkbox", :autocomplete => "off"} No
 
-              %td.form-group
-                %label Cost
+                %td.form-group
+                  %label Cost
 
-              %td.form-group
-                %button#add-garment.btn.btn-primary Add
+                %td.form-group
+                  %button#add-garment.btn.btn-primary Add
 
-          %tbody#calculation-table
-          %tfoot
-            %tr
-              %td.table-spacer{:colspan => "4"}
-              %td Rush Fee
-              %td $0.00
-              %td
-            %tr
-              %td.table-spacer{:colspan => "4"}
-              %td{:colspan => "3"}
-                %button#clear-items.btn.btn-danger Delete Everything
-            %tr
-              %td.table-spacer{:colspan => "4"}
-              %td.total-label Grand Total
-              %td#total-value $0.00
-              %td
+            %tbody#calculation-table
+            %tfoot
+              %tr
+                %td.table-spacer{:colspan => "4"}
+                %td Rush Fee
+                %td $0.00
+                %td
+              %tr
+                %td.table-spacer{:colspan => "4"}
+                %td{:colspan => "3"}
+                  %button#clear-items.btn.btn-danger Delete Everything
+              %tr
+                %td.table-spacer{:colspan => "4"}
+                %td.total-label Grand Total
+                %td#total-value $0.00
+                %td
 
       %footer
         %p
           Created by
           = succeed "." do
             %a{:href => "http://www.kortaggio.com"} Bill Mei
-          This website is not affiliated with Rinse Inc.
+          %span#popover-disclaimer{"data-toggle" => "popover"} This website is not affiliated with Rinse Inc.
 
     / build:js js/main.js
     %script{:src => "js/jquery.js"}

@@ -21,8 +21,6 @@ Estimate prices for the Rinse service
 ## TODO:
 
 - Implement rush orders, also wash & fold and dry clean.
-- Allow the user to edit the quantity / type of a model once it's added
-- Default quantity input is 1, not 0
-- Toggle arrows for quantity input
+- Quantity cannot be 0 or negative
 - Prettify the CSS
 
