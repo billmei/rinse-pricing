@@ -1,9 +1,42 @@
 @import "colors";
+@import "fonts";
+@import "dimens";
 
 #popover-disclaimer:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #calculation-table:hover {
-	cursor: pointer;
+  cursor: pointer;
+}
+
+
+#garment-form {
+  width: $width-garment-form;
+  margin: 0 auto $margin-trailing-block;
+  padding: $padding-block;
+  color: $text-primary;
+  background-color: $bg-primary;
+  text-align: center;
+
+  label {
+    text-align: left;
+    display: block;
+    padding-left: $padding-inline;
+  }
+  .form-group {
+    display: inline-block;
+    margin: 0 $margin-trailing-inline;
+    vertical-align: bottom;
+  }
+  .chosen-container {
+    text-align: left;
+    .chosen-single {
+      height: $form-input-height;
+    }
+  }
+  #garment-quantity {
+    width: 5em;
+  }
+
 }

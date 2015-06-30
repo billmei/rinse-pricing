@@ -19,6 +19,7 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.3.0",
     "backbone.localstorage": "~1.1.16",
-    "chosen": "~1.4.2"
+    "chosen": "~1.4.2",
+    "bootstrap-switch": "~3.3.2"
   }
 }

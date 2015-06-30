@@ -129,6 +129,10 @@ $(document).ready(function() {
       }
 
       $garmentType.chosen();
+      $('input[type="checkbox"]').bootstrapSwitch({
+        'onText' : 'YES',
+        'offText' : 'NO'
+      });
 
       // TODO: Refactor this into an AppView to preserve the local scope
       //       and events of $el.

@@ -10,6 +10,7 @@
     %link{:href => "css/bootstrap.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/font-awesome.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/chosen.min.css", :media => "screen", :rel => "stylesheet"}
+    %link{:href => "css/bootstrap-switch.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
     / endbuild
   %body
@@ -22,12 +23,12 @@
         %form#garment-form
           .form-group
             %label{:for => "garment-type"} Garment
-            %select#garment-type{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
+            %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
               %option{:value => ""}
 
           .form-group
-            %label{:for => "garment-quantity"} Number
-            %input#garment-quantity{:type => "number", :placeholder => "0"}/
+            %label{:for => "garment-quantity"} Qty
+            %input#garment-quantity.form-control.input-sm{:type => "number", :placeholder => "0"}/
 
           .form-group
             %label{:for => "rush-order"} Rush Order?
@@ -35,6 +36,9 @@
 
           .form-group
             %button#add-garment.btn.btn-primary Add
+        
+        %form#control-form
+          .form-group
             %button#clear-items.btn.btn-danger Clear Items
 
           .form-group
@@ -71,5 +75,6 @@
     %script{:src => "js/backbone.js"}
     %script{:src => "js/backbone-localStorage.js"}
     %script{:src => "js/chosen.min.js"}
+    %script{:src => "js/bootstrap-switch.js"}
     %script{:src => "js/main.js"}
     / endbuild
