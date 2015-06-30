@@ -13,54 +13,62 @@
     %link{:href => "css/main.css", :media => "screen", :rel => "stylesheet"}
     / endbuild
   %body
-    .jumbotron
-      .container
+    .container
+      .row
         %span#popover-disclaimer{"data-toggle" => "popover"} Unofficial
         %h1 Rinse Price Calculator
         %p Estimate how much it costs to clean your clothes with Rinse
-
-        %form#garment-form
-          .form-group
-            %label{:for => "garment-type"} Garment
-            %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
-              %option{:value => ""}
-
-          .form-group
-            %label{:for => "garment-quantity"} Qty
-            %input#garment-quantity.form-control{:type => "number", :placeholder => "0"}/
-
-          .form-group
-            %label{:for => "rush-order"} Rush?
-            .btn-group{"data-toggle" => "buttons"}
-              %label.btn.btn-default.btn-disabled
-                %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
-
-          .form-group
-            %button#add-garment.btn.btn-primary Add
-        
-        %form#control-form
-          .form-group
-            %button#clear-items.btn.btn-danger Clear Items
-
-          .form-group
-            %label Your Total
-            %span#grand-total
-
-    .container
       .row
-        %h2 Breakdown
+        %h2 Your Total Cost: <span id="grand-total"></span>
         %table.table.table-hover.table-striped
           %thead
-            %td Service
-            %td Cost
-            %td Quantity
-            %td Total
+            %tr.calculation-options
+              %td.form-group
+                %label{:for => "garment-type"} Garment
+                %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
+                  %option{:value => ""}
+
+              %td.form-group
+                %label{:for => "garment-quantity"} Quantity
+                %input#garment-quantity.form-control{:type => "number", :placeholder => "0"}/
+
+              %td.form-group
+                %label Price
+
+              %td.form-group
+                %label{:for => "rush-order"} Rush?
+                .btn-group{"data-toggle" => "buttons"}
+                  %label.btn.btn-default.btn-disabled
+                    %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
+
+              %td.form-group
+                %label{:for => "hang-dry"} Hang&nbsp;Dry?
+                .btn-group{"data-toggle" => "buttons"}
+                  %label.btn.btn-default.btn-disabled
+                    %input#hang-dry{:type => "checkbox", :autocomplete => "off"} No
+
+              %td.form-group
+                %label Cost
+
+              %td.form-group
+                %button#add-garment.btn.btn-primary Add
+
           %tbody#calculation-table
-          / Wash and fold: Shirt, $2.50, 2, $5.00
           %tfoot
-            %td.table-spacer{:colspan => "2"}
-            %td.total-label Total
-            %td#total-value $0.00
+            %tr
+              %td.table-spacer{:colspan => "4"}
+              %td Rush Fee
+              %td $0.00
+              %td
+            %tr
+              %td.table-spacer{:colspan => "4"}
+              %td{:colspan => "3"}
+                %button#clear-items.btn.btn-danger Delete Everything
+            %tr
+              %td.table-spacer{:colspan => "4"}
+              %td.total-label Grand Total
+              %td#total-value $0.00
+              %td
 
       %footer
         %p

@@ -7,122 +7,152 @@ $(document).ready(function() {
     "bathing suit (per piece)": {
       "price": 5,
       "services": ["launder and press"],
+      "descriptor": "piece"
     },
     "bed sheets": {
       "price": 15,
       "services": ["launder and press"],
+      "descriptor": "sheet"
     },
     "blankets": {
       "price": 15,
       "services": ["launder and press", "wash and fold"],
+      "descriptor": "blanket"
     },
     "blazers": {
       "price": 8,
       "services": ["dry clean"],
+      "descriptor": "blazer"
     },
     "blouses": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "blouse"
     },
     "coats": {
       "price": 15,
       "services": ["dry clean"],
+      "descriptor": "coat"
     },
     "comforters": {
       "price": 30,
       "services": ["wash and fold"],
+      "descriptor": "comforter"
     },
     "comforter covers": {
       "price": 30,
       "services": ["launder and press"],
+      "descriptor": "cover"
     },
     "dresses (casual)": {
       "price": 11,
       "services": ["launder and press"],
+      "descriptor": "dress"
     },
     "dresses (formal)": {
       "price": 15,
       "services": ["dry clean"],
+      "descriptor": "dress"
     },
     "duvets": {
       "price": 30,
       "services": ["wash and fold"],
+      "descriptor": "duvet"
     },
     "duvet covers": {
       "price": 30,
       "services": ["launder and press"],
+      "descriptor": "cover"
     },
     "jackets (formal)": {
       "price": 8,
       "services": ["dry clean"],
+      "descriptor": "jacket"
     },
     "napkins": {
       "price": 1,
       "services": ["launder and press"],
+      "descriptor": "napkin"
     },
     "pants": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "pant"
     },
     "pashminas": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "pashmina"
     },
     "pillows": {
       "price": 10,
       "services": ["launder and press"],
+      "descriptor": "pillow"
     },
     "pillowcases": {
       "price": 2,
       "services": ["launder and press"],
+      "descriptor": "item"
     },
     "scarves": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "scarf"
     },
     "shawls": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "shawl"
     },
     "shirts": {
       "price": 2.5,
       "services": ["launder and press"],
+      "descriptor": "shirt"
     },
     "skirts": {
       "price": 7,
       "services": ["launder and press"],
+      "descriptor": "skirt"
     },
     "sweaters": {
       "price": 7,
       "services": ["dry clean"],
+      "descriptor": "sweater"
     },
     "tablecloths": {
       "price": 30,
       "services": ["launder and press"],
+      "descriptor": "item"
     },
     "ties": {
       "price": 5,
       "services": ["dry clean"],
+      "descriptor": "tie"
     },
     "bath mats": {
       "price": 6,
       "services": ["wash and fold"],
+      "descriptor": "mat"
     },
     "kitchen mats": {
       "price": 6,
       "services": ["wash and fold"],
+      "descriptor": "mat"
     },
     "delicates" : {
       "price": 1,
       "services": ["hang dry"],
+      "descriptor": "item"
     },
     "synthetics" : {
       "price": 2.5,
       "services": ["hang dry"],
+      "descriptor": "item"
     },
     "wash and fold" : {
       "price": 1.5,
       "services": ["wash and fold"],
+      "descriptor": "pound"
     },
   };
   var RUSH_FEE = 3.95;
@@ -132,6 +162,9 @@ $(document).ready(function() {
       garment_type: '',
       cost: 0,
       quantity: 0,
+      is_rush: false,
+      hang_dry: false,
+      descriptor: 'item',
       total_cost: 0,
     }
   });
@@ -164,10 +197,14 @@ $(document).ready(function() {
     },
 
     render: function() {
+      var is_rush = this.model.get('is_rush') ? 'Yes' : 'No';
+      var hang_dry = this.model.get('hang_dry') ? 'Yes' : 'No';
       this.$el.html(
         '<td>' + this.model.get('garment_type') + '</td>' +
-        '<td>$' + Math.round10(this.model.get('cost'), -2).toFixed(2) + '</td>' +
         '<td>' + Math.round(this.model.get('quantity')) + '</td>' +
+        '<td>$' + Math.round10(this.model.get('cost'), -2).toFixed(2) + ' per ' + this.model.get('descriptor') + '</td>' +
+        '<td>' + is_rush + '</td>' +
+        '<td>' + hang_dry + '</td>' +
         '<td>$' + Math.round10(this.model.get('total_cost'), -2).toFixed(2) + '</td>' +
         '<td><button class="btn btn-danger remove-garment"><i class="fa fa-times"></i></button></td>'
       );
@@ -196,6 +233,7 @@ $(document).ready(function() {
       var $garmentType = $('#garment-type');
       var $garmentQuantity = $('#garment-quantity');
       var $rushOrder = $('#rush-order');
+      var $hangDry = $('#hang-dry');
       var $addGarment = $('#add-garment');
       var $clearAll = $('#clear-items');
       _.bindAll(this, 'render');
@@ -230,12 +268,18 @@ $(document).ready(function() {
         event.preventDefault();
         var garmentType = $garmentType.val();
         var garmentQuantity = parseInt($garmentQuantity.val());
+        var garmentDescriptor = GARMENTS[garmentType].descriptor;
         var garmentCost = parseFloat(GARMENTS[garmentType].price);
+        var isRush = $rushOrder.prop('checked');
+        var hangDry = $hangDry.prop('checked');
 
         self.addGarment.bind(self)({
           garment_type: garmentType.toTitleCase(),
           cost: garmentCost,
           quantity: garmentQuantity,
+          is_rush: isRush,
+          hang_dry: hangDry,
+          descriptor: garmentDescriptor,
           total_cost: garmentCost * garmentQuantity,
         });
       });
@@ -279,7 +323,11 @@ $(document).ready(function() {
     },
 
     removeAll: function() {
-      this.collection.reset();
+      // This is done instead of this.collection.reset();
+      // because we also need to delete the models in localStorage
+      _.chain(this.collection.models).clone().each(function(model){
+        model.destroy();
+      });
     }
   });
 

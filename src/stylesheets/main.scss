@@ -11,14 +11,7 @@
 }
 
 
-#garment-form {
-  width: $width-garment-form;
-  margin: 0 auto $margin-trailing-block;
-  padding: $padding-block;
-  color: $text-primary;
-  background-color: $bg-primary;
-  text-align: center;
-
+.calculation-options {
   label {
     text-align: left;
     display: block;
@@ -29,8 +22,6 @@
     }
   }
   .form-group {
-    display: inline-block;
-    margin: 0 $margin-trailing-inline;
     vertical-align: bottom;
   }
   .chosen-container {
