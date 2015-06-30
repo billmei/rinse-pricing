@@ -27,11 +27,13 @@
 
           .form-group
             %label{:for => "garment-quantity"} Qty
-            %input#garment-quantity.form-control.input-sm{:type => "number", :placeholder => "0"}/
+            %input#garment-quantity.form-control{:type => "number", :placeholder => "0"}/
 
           .form-group
-            %label{:for => "rush-order"} Rush Order?
-            %input#rush-order.input-sm{:type => "checkbox"}/
+            %label{:for => "rush-order"} Rush?
+            .btn-group{"data-toggle" => "buttons"}
+              %label.btn.btn-default.btn-disabled
+                %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
 
           .form-group
             %button#add-garment.btn.btn-primary Add

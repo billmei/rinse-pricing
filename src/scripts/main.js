@@ -1,35 +1,129 @@
 $(document).ready(function() {
   "use strict";
   var GARMENTS = {
-    // JavaScript doesn't have ints or else this would be in cents.
-    "bathing suit (per piece)": 5,
-    "bed sheet": 15,
-    "blanket": 15,
-    "blazer": 8,
-    "blouse": 7,
-    "coat": 15,
-    "comforter": 30,
-    "dress (casual)": 11,
-    "dress (formal)": 15,
-    "duvet cover": 30,
-    "jacket (formal)": 8,
-    "napkin": 1,
-    "pants": 7,
-    "pashmina": 7,
-    "pillow": 10,
-    "pillowcase": 2,
-    "scarf": 7,
-    "shawl": 7,
-    "shirt": 2.5,
-    "skirt": 7,
-    "sweater": 7,
-    "tablecloth": 30,
-    "tie": 5,
-    "bath mat": 6,
-    "kitchen mat": 6,
-    "delicates" : 1,
-    "synthetics" : 2.5,
-    "wash and fold" : 1.5
+    // JavaScript doesn't have ints or else prices would be in cents.
+    // I guessed the service (dry clean vs launder and press) as best as I could,
+    // send in a pull request to correct it if the service is wrong.
+    "bathing suit (per piece)": {
+      "price": 5,
+      "services": ["launder and press"],
+    },
+    "bed sheets": {
+      "price": 15,
+      "services": ["launder and press"],
+    },
+    "blankets": {
+      "price": 15,
+      "services": ["launder and press", "wash and fold"],
+    },
+    "blazers": {
+      "price": 8,
+      "services": ["dry clean"],
+    },
+    "blouses": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "coats": {
+      "price": 15,
+      "services": ["dry clean"],
+    },
+    "comforters": {
+      "price": 30,
+      "services": ["wash and fold"],
+    },
+    "comforter covers": {
+      "price": 30,
+      "services": ["launder and press"],
+    },
+    "dresses (casual)": {
+      "price": 11,
+      "services": ["launder and press"],
+    },
+    "dresses (formal)": {
+      "price": 15,
+      "services": ["dry clean"],
+    },
+    "duvets": {
+      "price": 30,
+      "services": ["wash and fold"],
+    },
+    "duvet covers": {
+      "price": 30,
+      "services": ["launder and press"],
+    },
+    "jackets (formal)": {
+      "price": 8,
+      "services": ["dry clean"],
+    },
+    "napkins": {
+      "price": 1,
+      "services": ["launder and press"],
+    },
+    "pants": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "pashminas": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "pillows": {
+      "price": 10,
+      "services": ["launder and press"],
+    },
+    "pillowcases": {
+      "price": 2,
+      "services": ["launder and press"],
+    },
+    "scarves": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "shawls": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "shirts": {
+      "price": 2.5,
+      "services": ["launder and press"],
+    },
+    "skirts": {
+      "price": 7,
+      "services": ["launder and press"],
+    },
+    "sweaters": {
+      "price": 7,
+      "services": ["dry clean"],
+    },
+    "tablecloths": {
+      "price": 30,
+      "services": ["launder and press"],
+    },
+    "ties": {
+      "price": 5,
+      "services": ["dry clean"],
+    },
+    "bath mats": {
+      "price": 6,
+      "services": ["wash and fold"],
+    },
+    "kitchen mats": {
+      "price": 6,
+      "services": ["wash and fold"],
+    },
+    "delicates" : {
+      "price": 1,
+      "services": ["hang dry"],
+    },
+    "synthetics" : {
+      "price": 2.5,
+      "services": ["hang dry"],
+    },
+    "wash and fold" : {
+      "price": 1.5,
+      "services": ["wash and fold"],
+    },
   };
   var RUSH_FEE = 3.95;
 
@@ -129,10 +223,6 @@ $(document).ready(function() {
       }
 
       $garmentType.chosen();
-      $('input[type="checkbox"]').bootstrapSwitch({
-        'onText' : 'YES',
-        'offText' : 'NO'
-      });
 
       // TODO: Refactor this into an AppView to preserve the local scope
       //       and events of $el.
@@ -140,7 +230,7 @@ $(document).ready(function() {
         event.preventDefault();
         var garmentType = $garmentType.val();
         var garmentQuantity = parseInt($garmentQuantity.val());
-        var garmentCost = parseFloat(GARMENTS[garmentType]);
+        var garmentCost = parseFloat(GARMENTS[garmentType].price);
 
         self.addGarment.bind(self)({
           garment_type: garmentType.toTitleCase(),

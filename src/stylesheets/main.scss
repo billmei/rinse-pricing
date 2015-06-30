@@ -23,6 +23,10 @@
     text-align: left;
     display: block;
     padding-left: $padding-inline;
+    &.btn {
+      text-align: center;
+      width: 4em;
+    }
   }
   .form-group {
     display: inline-block;
@@ -31,12 +35,21 @@
   }
   .chosen-container {
     text-align: left;
+    font-size: 1em;
     .chosen-single {
       height: $form-input-height;
+      span {
+        padding: $padding-inner;
+      }
     }
   }
   #garment-quantity {
     width: 5em;
+  }
+  .rush-order {
+    .btn {
+      // display: inline-block;
+    }
   }
 
 }
