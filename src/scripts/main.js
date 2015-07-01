@@ -308,6 +308,7 @@ $(document).ready(function() {
             .next().html('No');
           $rushOrderLabel
             .addClass('disabled')
+            .removeClass('active')
             .popover('enable');
         }
 

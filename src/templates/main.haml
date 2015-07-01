@@ -60,6 +60,7 @@
                   %a.btn.disabled.btn-link &nbsp;
 
                 %td.form-group
+                  %label Calculate
                   %button#add-garment.btn.btn-primary.full-width Add
 
             %tbody#calculation-table
@@ -75,7 +76,19 @@
                 %td.total-label.text-right{:colspan => "3"} Your Total Cost:
                 %td#grand-total.text-right $0.00
                 %td
-
+              %tr
+                %td.text-right{:colspan => "6"}
+                  %p
+                    Happy with everything?
+                  %p
+                    Schedule a rinse by text:
+                    = succeed " " do
+                      %a{:href => "tel:295-23"} 295-23
+                    <br/> or call:
+                    = succeed " " do
+                      %a{:href => "tel:1-888-850-2444"} 1-888-850-2444
+                %td
+      
       %footer
         %p
           Created by
