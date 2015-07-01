@@ -17,7 +17,3 @@ Estimate prices for the Rinse service
 ## Compile for production
 
 	$ grunt ship
-
-## TODO:
-
-- Implement hang-dry (delicates MUST be hung-dry).

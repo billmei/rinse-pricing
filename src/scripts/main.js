@@ -238,6 +238,7 @@ $(document).ready(function() {
       var $clearAll = $('#clear-items');
       var $toggleBoxes = $('input:checkbox');
       var $rushOrderLabel = $rushOrder.parent();
+      var $hangDryLabel = $hangDry.parent();
 
       _.bindAll(this, 'render');
 
@@ -272,6 +273,14 @@ $(document).ready(function() {
       });
       $rushOrderLabel.popover('disable');
 
+      $hangDryLabel.popover({
+        'trigger' : 'hover click',
+        'placement' : 'top',
+        'content' : 'This garment <em>must</em> be hung dry.',
+        'html' : true
+      });
+      $hangDryLabel.popover('disable');
+
       $addGarment.popover({
         'trigger' : 'manual',
         'placement' : 'top',
@@ -283,19 +292,47 @@ $(document).ready(function() {
         // Only wash and fold items can be rushed
         var garment = $(this).val();
         if ($.inArray('wash and fold', GARMENTS[garment].services) > -1) {
-          $rushOrder.prop('checked', false);
-          $rushOrder.prop('disabled', false);
-          $rushOrderLabel.removeClass('disabled');
-          $rushOrderLabel.removeClass('active');
-          $rushOrder.next().html('No');
-          $rushOrderLabel.popover('disable');
+          $rushOrder
+            .prop('checked', false)
+            .prop('disabled', false)
+            .next().html('No');
+          $rushOrderLabel
+            .removeClass('disabled')
+            .removeClass('active')
+            .popover('hide')
+            .popover('disable');
         } else {
-          $rushOrder.prop('checked', false);
-          $rushOrder.prop('disabled', true);
-          $rushOrderLabel.addClass('disabled');
-          $rushOrder.next().html('No');
-          $rushOrderLabel.popover('enable');
+          $rushOrder
+            .prop('checked', false)
+            .prop('disabled', true)
+            .next().html('No');
+          $rushOrderLabel
+            .addClass('disabled')
+            .popover('enable');
         }
+
+        // Delicates and Synthetics MUST be hung-dry
+        if ($.inArray('hang dry', GARMENTS[garment].services) > -1) {
+          $hangDry
+            .prop('checked', true)
+            .prop('disabled', true)
+            .next().html('Yes');
+          $hangDryLabel
+            .addClass('disabled')
+            .addClass('active')
+            .popover('enable');
+        } else {
+          $hangDry
+            .prop('checked', false)
+            .prop('disabled', false)
+            .next().html('No');
+          $hangDryLabel
+            .removeClass('disabled')
+            .removeClass('active')
+            .popover('hide')
+            .popover('disable');
+        }
+
       });
 
       // TODO: Refactor this into an AppView to preserve the local scope
