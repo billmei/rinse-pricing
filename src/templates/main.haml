@@ -23,55 +23,55 @@
     .container
       .row
         .col-xs-12
-          %h2 Your Total Cost: <span id="grand-total"></span>
           %table.table.table-hover.table-striped
-            %thead
-              %tr.calculation-options
+            %thead.calculation-options
+              %tr
                 %td.form-group
-                  %label{:for => "garment-type"} Garment
+                  %label.text-left{:for => "garment-type"} Garment
                   %select#garment-type.form-control{:name => "select", "data-placeholder" => "e.g. Shirt, Blouse, etc."}
                     %option{:value => ""}
 
                 %td.form-group
                   %label{:for => "garment-quantity"} Quantity
-                  %input#garment-quantity.form-control{:type => "number", :placeholder => "1"}/
+                  %input#garment-quantity.form-control.single-option{:type => "number", :placeholder => "1"}/
 
                 %td.form-group
                   %label Price
+                  %a.btn.disabled.btn-link &nbsp;
 
                 %td.form-group
                   %label{:for => "rush-order"} Rush?
-                  .btn-group{"data-toggle" => "buttons"}
-                    %label.btn.btn-default.btn-disabled
-                      %input#rush-order{:type => "checkbox", :autocomplete => "off"} No
+                  .btn-group.single-option{"data-toggle" => "buttons"}
+                    %label.btn.btn-default.single-option
+                      %input#rush-order{:type => "checkbox", :autocomplete => "off"}
+                        %span No
 
                 %td.form-group
                   %label{:for => "hang-dry"} Hang&nbsp;Dry?
-                  .btn-group{"data-toggle" => "buttons"}
-                    %label.btn.btn-default.btn-disabled
-                      %input#hang-dry{:type => "checkbox", :autocomplete => "off"} No
+                  .btn-group.single-option{"data-toggle" => "buttons"}
+                    %label.btn.btn-default.single-option
+                      %input#hang-dry{:type => "checkbox", :autocomplete => "off"}
+                        %span No
 
                 %td.form-group
                   %label Cost
+                  %a.btn.disabled.btn-link &nbsp;
 
                 %td.form-group
-                  %button#add-garment.btn.btn-primary Add
+                  %button#add-garment.btn.btn-primary.full-width Add
 
             %tbody#calculation-table
             %tfoot
               %tr
-                %td.table-spacer{:colspan => "4"}
+                %td{:colspan => "4"}
                 %td Rush Fee
-                %td $0.00
+                %td.text-right $0.00
                 %td
               %tr
-                %td.table-spacer{:colspan => "4"}
-                %td{:colspan => "3"}
-                  %button#clear-items.btn.btn-danger Delete Everything
-              %tr
-                %td.table-spacer{:colspan => "4"}
-                %td.total-label Grand Total
-                %td#total-value $0.00
+                %td{:colspan => "2"}
+                  #clear-items.btn.btn-danger Delete Everything
+                %td.total-label.text-right{:colspan => "3"} Your Total Cost:
+                %td#grand-total.text-right $0.00
                 %td
 
       %footer

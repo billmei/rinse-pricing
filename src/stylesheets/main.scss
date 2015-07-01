@@ -2,33 +2,41 @@
 @import "fonts";
 @import "dimens";
 
+html {
+  // Always display scrollbars
+  overflow: -moz-scrollbars-vertical;
+  overflow: scroll;
+}
+
 body {
-  background: url('../img/crossword.png');
+  background: $bg-primary;
   background-repeat: repeat;
   font-family: $primary-font;
 }
 
 .jumbotron {
   background-color: $logo-blue;
-  color: $white;
+  color: $text-light;
 }
 
-#popover-disclaimer:hover {
-  cursor: pointer;
+.table {
+  width: auto;
 }
 
-#calculation-table:hover {
-  cursor: pointer;
+.full-width {
+  width: 100%;
 }
 
 .calculation-options {
   label {
-    text-align: left;
+    text-align: center;
     display: block;
     padding-left: $padding-inline;
+    &.text-left {
+      text-align: left;
+    }
     &.btn {
       text-align: center;
-      width: 4em;
     }
   }
   .form-group {
@@ -44,13 +52,26 @@ body {
       }
     }
   }
-  #garment-quantity {
-    width: 5em;
+  .single-option {
+    width: 4em;
+    margin: 0 auto;
+    display: block;
   }
-  .rush-order {
-    .btn {
-      // display: inline-block;
-    }
+  .btn.active {
+    background-color: $logo-blue;
+    color: $text-light;
   }
+}
 
+#calculation-table {
+  text-align: center;
+}
+
+#grand-total,
+.total-label {
+  font-size: 2em;
+}
+
+#popover-disclaimer:hover {
+  cursor: pointer;
 }

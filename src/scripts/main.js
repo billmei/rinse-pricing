@@ -200,13 +200,13 @@ $(document).ready(function() {
       var is_rush = this.model.get('is_rush') ? 'Yes' : 'No';
       var hang_dry = this.model.get('hang_dry') ? 'Yes' : 'No';
       this.$el.html(
-        '<td>' + this.model.get('garment_type') + '</td>' +
+        '<td class="text-left">' + this.model.get('garment_type') + '</td>' +
         '<td>' + Math.round(this.model.get('quantity')) + '</td>' +
         '<td>$' + Math.round10(this.model.get('cost'), -2).toFixed(2) + ' per ' + this.model.get('descriptor') + '</td>' +
         '<td>' + is_rush + '</td>' +
         '<td>' + hang_dry + '</td>' +
-        '<td>$' + Math.round10(this.model.get('total_cost'), -2).toFixed(2) + '</td>' +
-        '<td><button class="btn btn-danger remove-garment"><i class="fa fa-times"></i></button></td>'
+        '<td class="text-right">$' + Math.round10(this.model.get('total_cost'), -2).toFixed(2) + '</td>' +
+        '<td class="text-right"><button class="btn btn-danger remove-garment"><i class="fa fa-times"></i></button></td>'
       );
       return this;
     },
@@ -290,12 +290,23 @@ $(document).ready(function() {
         self.unrenderAll.bind(self)();
         self.updateTotal();
       });
+
+      // Make the toggle checkboxes change from "No" to "Yes"
+      $('input:checkbox').on('change', function() {
+        var $this = $(this);
+        var newState = 'No';
+        if ($this.prop('checked')) {
+          newState = 'Yes';
+        } else {
+          newState = 'No';
+        }
+        $this.next().html(newState);
+      });
     },
 
     updateTotal: function() {
       var totalCost = this.collection.sumCosts().toFixed(2);
       $('#grand-total').html('$' + totalCost);
-      $('#total-value').html('$' + totalCost);
     },
 
     render: function() {
@@ -339,6 +350,7 @@ $(document).ready(function() {
   });
 
   var tableView = new TableView();
+
 });
 
 // Decimal rounding from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
