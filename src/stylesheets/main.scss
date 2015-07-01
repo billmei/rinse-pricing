@@ -70,7 +70,7 @@ footer {
       display: none;
     }
   }
-  .btn.active:not(.disabled) {
+  .btn.active {
     background-color: $logo-blue;
     color: $text-light;
   }
