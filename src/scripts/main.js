@@ -237,6 +237,7 @@ $(document).ready(function() {
       var $addGarment = $('#add-garment');
       var $clearAll = $('#clear-items');
       var $toggleBoxes = $('input:checkbox');
+      var $rushOrderLabel = $rushOrder.parent();
 
       _.bindAll(this, 'render');
 
@@ -264,20 +265,29 @@ $(document).ready(function() {
 
       $garmentType.chosen();
 
+      $rushOrderLabel.popover({
+        'trigger' : 'hover click',
+        'placement' : 'top',
+        'content' : 'This garment cannot be rushed.'
+      });
+      $rushOrderLabel.popover('disable');
+
       $garmentType.on('change', function() {
         // Only wash and fold items can be rushed
         var garment = $(this).val();
         if ($.inArray('wash and fold', GARMENTS[garment].services) > -1) {
           $rushOrder.prop('checked', false);
           $rushOrder.prop('disabled', false);
-          $rushOrder.parent().removeClass('disabled');
-          $rushOrder.parent().removeClass('active');
+          $rushOrderLabel.removeClass('disabled');
+          $rushOrderLabel.removeClass('active');
           $rushOrder.next().html('No');
+          $rushOrderLabel.popover('disable');
         } else {
           $rushOrder.prop('checked', false);
           $rushOrder.prop('disabled', true);
-          $rushOrder.parent().addClass('disabled');
+          $rushOrderLabel.addClass('disabled');
           $rushOrder.next().html('No');
+          $rushOrderLabel.popover('enable');
         }
       });
 

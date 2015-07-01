@@ -21,4 +21,3 @@ Estimate prices for the Rinse service
 ## TODO:
 
 - Implement hang-dry (delicates MUST be hung-dry).
-- Implement rush order (dry cleaning items CANNOT be rushed).
