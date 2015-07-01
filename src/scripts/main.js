@@ -272,6 +272,13 @@ $(document).ready(function() {
       });
       $rushOrderLabel.popover('disable');
 
+      $addGarment.popover({
+        'trigger' : 'manual',
+        'placement' : 'top',
+        'content' : 'No garment selected.'
+      });
+      $addGarment.popover('disable');
+
       $garmentType.on('change', function() {
         // Only wash and fold items can be rushed
         var garment = $(this).val();
@@ -296,6 +303,13 @@ $(document).ready(function() {
       $addGarment.on('click', function(event) {
         event.preventDefault();
         var garmentType = $garmentType.val();
+
+        $addGarment.popover('hide').popover('disable');
+        if (!garmentType) {
+          $addGarment.popover('enable').popover('show');
+          return;
+        }
+
         var garmentQuantity = parseInt($garmentQuantity.val());
         var garmentDescriptor = GARMENTS[garmentType].descriptor;
         var garmentCost = parseFloat(GARMENTS[garmentType].price);
