@@ -305,8 +305,22 @@ $(document).ready(function() {
     },
 
     updateTotal: function() {
-      var totalCost = this.collection.sumCosts().toFixed(2);
-      $('#grand-total').html('$' + totalCost);
+      var totalCost = this.collection.sumCosts();
+      // Check if there is at least one item that is being rushed
+      var willRush = false;
+      _.each(this.collection.models, function(garment) {
+        console.log(garment);
+        if (garment.get('is_rush')) {
+          willRush = true;
+        }
+      });
+      if (willRush) {
+        totalCost += RUSH_FEE;
+        $('#rush-fee').html('$' + RUSH_FEE.toFixed(2));
+      } else {
+        $('#rush-fee').html('$0.00');
+      }
+      $('#grand-total').html('$' + totalCost.toFixed(2));
     },
 
     render: function() {
@@ -344,7 +358,7 @@ $(document).ready(function() {
 
   $('#popover-disclaimer').popover({
     'trigger' : 'hover click',
-    'placement' : 'bottom',
+    'placement' : 'right',
     'content' : 'For informational purposes only; check <a href="http://www.rinse.com">rinse.com</a> for the most updated prices.',
     'html' : true
   });

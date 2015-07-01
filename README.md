@@ -20,7 +20,5 @@ Estimate prices for the Rinse service
 
 ## TODO:
 
-- Implement rush orders, also wash & fold and dry clean.
-- Quantity cannot be 0 or negative
-- Prettify the CSS
-
+- Implement hang-dry (delicates MUST be hung-dry).
+- Implement rush order (dry cleaning items CANNOT be rushed).

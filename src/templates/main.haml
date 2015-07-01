@@ -18,7 +18,10 @@
         .row
           .col-xs-12
             %h1 Rinse Price Calculator
-            %p Estimate how much it costs to clean your clothes with Rinse
+            %p
+              Estimate how much it costs to clean your clothes with
+              = succeed "" do
+                %a{:href => "http://www.rinse.com"} Rinse
 
     .container
       .row
@@ -33,7 +36,7 @@
 
                 %td.form-group
                   %label{:for => "garment-quantity"} Quantity
-                  %input#garment-quantity.form-control.single-option{:type => "number", :placeholder => "1"}/
+                  %input#garment-quantity.form-control.single-option{:type => "number", :placeholder => "1", :value => "1"}/
 
                 %td.form-group
                   %label Price
@@ -65,7 +68,7 @@
               %tr
                 %td{:colspan => "4"}
                 %td Rush Fee
-                %td.text-right $0.00
+                %td#rush-fee.text-right $0.00
                 %td
               %tr
                 %td{:colspan => "2"}

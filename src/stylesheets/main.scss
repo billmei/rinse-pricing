@@ -4,8 +4,8 @@
 
 html {
   // Always display scrollbars
-  overflow: -moz-scrollbars-vertical;
-  overflow: scroll;
+  overflow-y: -moz-scrollbars-vertical;
+  overflow-y: scroll;
 }
 
 body {
@@ -17,6 +17,20 @@ body {
 .jumbotron {
   background-color: $logo-blue;
   color: $text-light;
+  text-align: center;
+  a {
+    color: $text-light;
+    text-decoration: none;
+    border-bottom: 1px $text-light dashed;
+    &:hover {
+
+    }
+  }
+}
+
+footer {
+  text-align: center;
+  padding: $padding-block;
 }
 
 .full-width {
