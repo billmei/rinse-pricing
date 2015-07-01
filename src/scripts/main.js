@@ -236,6 +236,8 @@ $(document).ready(function() {
       var $hangDry = $('#hang-dry');
       var $addGarment = $('#add-garment');
       var $clearAll = $('#clear-items');
+      var $toggleBoxes = $('input:checkbox');
+
       _.bindAll(this, 'render');
 
       this.collection = new GarmentCollection();
@@ -252,15 +254,32 @@ $(document).ready(function() {
       }
       sortedGarments.sort();
       for (var i = 0; i < sortedGarments.length; i++) {
-        var g = sortedGarments[i];
+        var gar = sortedGarments[i];
         $garmentType.append(
-          '<option value="' + g + '">' +
-            g.toTitleCase() +
+          '<option value="' + gar + '">' +
+            gar.toTitleCase() +
           '</option>'
           );
       }
 
       $garmentType.chosen();
+
+      $garmentType.on('change', function() {
+        // Only wash and fold items can be rushed
+        var garment = $(this).val();
+        if ($.inArray('wash and fold', GARMENTS[garment].services) > -1) {
+          $rushOrder.prop('checked', false);
+          $rushOrder.prop('disabled', false);
+          $rushOrder.parent().removeClass('disabled');
+          $rushOrder.parent().removeClass('active');
+          $rushOrder.next().html('No');
+        } else {
+          $rushOrder.prop('checked', false);
+          $rushOrder.prop('disabled', true);
+          $rushOrder.parent().addClass('disabled');
+          $rushOrder.next().html('No');
+        }
+      });
 
       // TODO: Refactor this into an AppView to preserve the local scope
       //       and events of $el.
@@ -292,13 +311,21 @@ $(document).ready(function() {
       });
 
       // Make the toggle checkboxes change from "No" to "Yes"
-      $('input:checkbox').on('change', function() {
+      $toggleBoxes.on('change', function(event) {
+        event.preventDefault();
         var $this = $(this);
         var newState = 'No';
+
+        if ($this.prop('disabled')) {
+          return;
+        }
+
         if ($this.prop('checked')) {
           newState = 'Yes';
+          $this.parent().addClass('active');
         } else {
           newState = 'No';
+          $this.parent().removeClass('active');
         }
         $this.next().html(newState);
       });
@@ -309,7 +336,6 @@ $(document).ready(function() {
       // Check if there is at least one item that is being rushed
       var willRush = false;
       _.each(this.collection.models, function(garment) {
-        console.log(garment);
         if (garment.get('is_rush')) {
           willRush = true;
         }

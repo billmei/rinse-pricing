@@ -6,6 +6,7 @@
     %title Rinse Price Calculator
     %meta{:content => "Estimate how much it costs to use Rinse", :name => "description"}
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %link{:rel => "icon", :href => "img/favicon.ico"}/
     / build:css css/main.css
     %link{:href => "css/bootstrap.css", :media => "screen", :rel => "stylesheet"}
     %link{:href => "css/font-awesome.css", :media => "screen", :rel => "stylesheet"}
@@ -44,17 +45,15 @@
 
                 %td.form-group
                   %label{:for => "rush-order"} Rush?
-                  .btn-group.single-option{"data-toggle" => "buttons"}
-                    %label.btn.btn-default.single-option
-                      %input#rush-order{:type => "checkbox", :autocomplete => "off"}
-                        %span No
+                  %label.btn.btn-default.single-option
+                    %input#rush-order{:type => "checkbox", :autocomplete => "off"}
+                      %span No
 
                 %td.form-group
                   %label{:for => "hang-dry"} Hang&nbsp;Dry?
-                  .btn-group.single-option{"data-toggle" => "buttons"}
-                    %label.btn.btn-default.single-option
-                      %input#hang-dry{:type => "checkbox", :autocomplete => "off"}
-                        %span No
+                  %label.btn.btn-default.single-option
+                    %input#hang-dry{:type => "checkbox", :autocomplete => "off"}
+                      %span No
 
                 %td.form-group
                   %label Cost
