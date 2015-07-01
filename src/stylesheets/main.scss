@@ -71,7 +71,9 @@ table {
     margin: 0 auto;
     display: block;
     input[type="checkbox"] {
-      display: none;
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
     }
   }
   .btn.active {
