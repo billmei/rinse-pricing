@@ -4,22 +4,22 @@ Estimate prices for the Rinse service. Demo: http://kortaggio.github.io/rinse-pr
 
 ## Installation
 
-	$ git clone https://github.com/Kortaggio/rinse-pricing.git
-	$ cd rinse-pricing
-	$ npm install
-	$ bower install
-	$ grunt dev
+	git clone https://github.com/Kortaggio/rinse-pricing.git
+	cd rinse-pricing
+	npm install
+	bower install
+	grunt dev
 
 ## Run locally
 
 (and watch filesystem for changes)
 
-	$ grunt run
+	grunt run
 
 ## Compile for production
 
-	$ grunt ship
+	grunt ship
 
 Production files will be in the `dist` directory. Push to `gh-pages` using
 
-	$ git subtree push --prefix dist origin gh-pages
+	git subtree push --prefix dist origin gh-pages
