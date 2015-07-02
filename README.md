@@ -20,4 +20,6 @@ Estimate prices for the Rinse service. Demo: http://kortaggio.github.io/rinse-pr
 
 	$ grunt ship
 
-Production files will be in the `dist` directory.
+Production files will be in the `dist` directory. Push to `gh-pages` using
+
+	$ git subtree push --prefix dist origin gh-pages
