@@ -4,6 +4,8 @@ Estimate prices for the Rinse service. Demo: http://kortaggio.github.io/rinse-pr
 
 ## Installation
 
+Requires [npm](https://www.npmjs.com/), [bower](http://bower.io/), and [grunt](http://gruntjs.com/).
+
 	git clone https://github.com/Kortaggio/rinse-pricing.git
 	cd rinse-pricing
 	npm install
