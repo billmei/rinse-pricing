@@ -20,9 +20,14 @@ module.exports = function(grunt) {
     // Compile SASS to CSS
     sass: {
       main: {
-        files: {
-          'dev/css/main.css' : 'src/stylesheets/main.scss'
-        }
+        files: [
+          {
+            'dev/css/main.css' : 'src/stylesheets/main.scss'
+          },
+          {
+            'dev/css/imports.css' : 'src/stylesheets/imports.scss'
+          }
+        ]
       }
     },
     // Compile HAML to HTML
@@ -102,6 +107,22 @@ module.exports = function(grunt) {
             ],
             dest: 'dist/fonts/'
           },
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'bower_components/chosen/*.png'
+            ],
+            dest: 'dist/css/'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'src/images/*'
+            ],
+            dest: 'dist/img/'
+          }
         ]
       },
       // Copy html output into production environment
@@ -128,14 +149,17 @@ module.exports = function(grunt) {
               'dev/js/backbone.js',
               'dev/js/backbone-localStorage.js',
               'dev/js/chosen.min.js',
+              'dev/js/main.js',
             ],
             dest: 'dev/js/packed.js'
           },
           {
             src: [
+              'dev/css/imports.css',
               'dev/css/bootstrap.css',
               'dev/css/font-awesome.css',
               'dev/css/chosen.min.css',
+              'dev/css/main.css',
             ],
             dest: 'dev/css/packed.css'
           }
@@ -161,7 +185,10 @@ module.exports = function(grunt) {
             dest: 'dist/css/main.css',
             src: ['dev/css/packed.css']
           }
-        ]
+        ],
+        options: {
+          processImport: true
+        }
       }
     },
     // Configure minification target for production

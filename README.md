@@ -1,6 +1,6 @@
 # Rinse Price Calculator
 
-Estimate prices for the Rinse service
+Estimate prices for the Rinse service. Demo: http://kortaggio.github.io/rinse-pricing
 
 ## Installation
 
@@ -10,10 +10,14 @@ Estimate prices for the Rinse service
 	$ bower install
 	$ grunt dev
 
-## Run locally (and watch filesystem for changes)
+## Run locally
+
+(and watch filesystem for changes)
 
 	$ grunt run
 
 ## Compile for production
 
 	$ grunt ship
+
+Production files will be in the `dist` directory.
