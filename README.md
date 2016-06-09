@@ -1,6 +1,6 @@
 # Rinse Price Calculator
 
-Estimate prices for the Rinse service. Demo: http://kortaggio.github.io/rinse-pricing
+Estimate prices for the Rinse service. Demo: https://kortaggio.github.io/rinse-pricing
 
 ## Installation
 
